@@ -6,8 +6,7 @@ object Problem1 {
 
 
   def solution(input: Array[Int]): Int = {
-    val intermediateArray = input.sliding(3, 1).map(x => x.sum).toArray
-    compareTwoNumbersInArray(intermediateArray)
+    compareTwoNumbersInArray(input.sliding(3, 1).map(x => x.sum).toArray)
   }
 
   def compareTwoNumbersInArray(input: Array[Int]): Int = {
