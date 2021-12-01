@@ -6,6 +6,11 @@ object Problem1 {
 
 
   def solution(input: Array[Int]): Int = {
+    val intermediateArray = input.sliding(3, 1).map(x => x.sum).toArray
+    compareTwoNumbersInArray(intermediateArray)
+  }
+
+  def compareTwoNumbersInArray(input: Array[Int]): Int = {
     input.zip(input.tail).count(x => x._2 > x._1)
   }
 
@@ -30,7 +35,8 @@ object Problem1 {
 object run {
   def main(args: Array[String]): Unit = {
     val f = Problem1.readInput("input-1")
-    println(Problem1.oldSolution(f)) // 1301
-    println(Problem1.solution(f)) // 1301
+    println(Problem1.compareTwoNumbersInArray(f))
+    println(Problem1.solution(f))
+
   }
 }

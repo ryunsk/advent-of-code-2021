@@ -17,7 +17,13 @@ class Problem1Test extends AnyFlatSpec with Matchers {
   it should "find correct solution" in {
     val filePath = "test-input-1"
     val inputArray = Problem1.readInput(filePath)
-    Problem1.solution(inputArray) should equal(7)
+    Problem1.compareTwoNumbersInArray(inputArray) should equal(7)
+  }
+
+  it should "find correct solution for three sliding window method" in {
+    val filePath = "test-input-1"
+    val inputArray = Problem1.readInput(filePath)
+    Problem1.solution(inputArray) should equal(5)
   }
 
 }
