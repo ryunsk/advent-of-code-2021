@@ -5,9 +5,9 @@ import scala.util.matching.Regex
 
 object Problem2 {
   def solution(filePath: String): Int = {
-
     val input = readInput(filePath)
     val finalPosition = input.map(parseDepthMeter).foldLeft((0, 0)) { case ((x, y), (a, b)) => (x + a, y + b) }
+
     finalPosition._1 * finalPosition._2
   }
 
@@ -25,7 +25,7 @@ object Problem2 {
 
   private[problem2] def readInput(filePath: String): Array[String] = {
     val lines = Source.fromResource(filePath).getLines()
-    lines.map(_.toString).toArray
+    lines.toArray
   }
 }
 
