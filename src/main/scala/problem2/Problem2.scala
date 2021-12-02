@@ -13,14 +13,13 @@ object Problem2 {
 
   def solutionWithAim(filePath: String): Int = {
     val input = readInput(filePath)
-    var depth = 0
-    val position = input.map(parseDepthMeter).foldLeft((0, 0)) { case ((x, y), (a, b)) =>
-      println("Current: " + (x, y) + " Next: " + (a, b))
-      depth += a * (y + b)
-      (x + a, y + b)
-    }
-    println("Depth = " + depth)
-    position._1 * depth
+    val position = input
+      .map(parseDepthMeter)
+      .map(x => (x._1, x._2, 0))
+      .foldLeft((0, 0, 0)) { case ((x, y, z), (a, b, c)) =>
+        (x + a, y + b, z + (a * (y + b)))
+      }
+    position._1 * position._3
   }
 
   private[problem2] def parseDepthMeter(input: String): (Int, Int) = {
