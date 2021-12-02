@@ -19,4 +19,9 @@ class Problem2Test extends AnyFlatSpec with Matchers {
     Problem2.parseDepthMeter("up 1") should equal((0, -1))
   }
 
+  it should "test input solution with aim" in {
+    val filePath = "test-input-2"
+    Problem2.solutionWithAim(filePath) should equal(900)
+  }
+
 }
