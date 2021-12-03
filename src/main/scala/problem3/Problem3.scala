@@ -1,5 +1,6 @@
 package problem3
 
+import scala.annotation.tailrec
 import scala.io.Source
 
 object Problem3 {
@@ -12,6 +13,22 @@ object Problem3 {
 
   def solutionPartTwo(filePath: String): Int = {
     111
+  }
+
+  def findLastRemainingOxygenBitCriteria(input: List[String]): String = {
+    @annotation.tailrec
+    def loop(index: Int, inputList: List[String]): String = {
+      if (inputList.length == 1) {
+        inputList.head
+      } else {
+        val transposedList = inputList.transpose
+        val mostCommonCharInIndex = findMostCommonElementInCollection(transposedList(index))
+        val filtered = inputList.filter(x => x(index) == mostCommonCharInIndex)
+        loop(index + 1, filtered)
+      }
+    }
+
+    loop(0, input)
   }
 
   def findGammaRate(input: List[String]): String = {

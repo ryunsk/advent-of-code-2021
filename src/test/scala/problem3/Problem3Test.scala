@@ -48,10 +48,19 @@ class Problem3Test extends AnyFlatSpec with Matchers {
   it should "find gamma rate" in {
     Problem3.findGammaRate(testInput) should equal("10110")
   }
-
   it should "find epsilon rate" in {
     Problem3.findEpsilonRate(testInput) should equal("01001")
   }
+  it should "find Oxygen criteria" in {
+    val input = List("100", "111", "010")
+    Problem3.findLastRemainingOxygenBitCriteria(input) should equal("111")
+  }
+  it should "find Oxygen criteria - bigger input" in {
+    Problem3.findLastRemainingOxygenBitCriteria(testInput) should equal("10111")
+  }
+  //  it should "find CO2 criteria" in {
+  //    Problem3.findLastRemainingOxygenBitCriteria(testInput) should equal("10111")
+  //  }
 
   behavior of "solution finder"
   it should "test solution" in {
