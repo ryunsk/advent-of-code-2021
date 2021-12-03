@@ -18,13 +18,29 @@ class Problem3Test extends AnyFlatSpec with Matchers {
 
   behavior of "collection helpers"
   it should "find most common element in a collection" in {
-    val coll = List(1, 2, 2, 3, 3, 3, 1, 1, 1, 1, 1)
-    Problem3.findMostCommonElementInCollection(coll) should equal(1)
+    val coll = List('1', '1', '2', '3')
+    Problem3.findMostCommonElementInCollection(coll) should equal('1')
+  }
+  it should "find most common element in a collection - Return 1 if most common are the same - 1" in {
+    val coll = List('0', '1')
+    Problem3.findMostCommonElementInCollection(coll) should equal('1')
+  }
+  it should "find most common element in a collection - Return 1 if most common are the same - 2" in {
+    val coll = List('1', '0')
+    Problem3.findMostCommonElementInCollection(coll) should equal('1')
   }
 
   it should "find least common element in a collection" in {
-    val coll = List(1, 2, 2, 3, 3, 3, 1, 1, 1, 1, 1)
-    Problem3.findLeastCommonElementInCollection(coll) should equal(2)
+    val coll = List('1', '1', '2', '3', '3')
+    Problem3.findLeastCommonElementInCollection(coll) should equal('2')
+  }
+  it should "find least common element in a collection - Return 0 if least common are the same - 1" in {
+    val coll = List('0', '1')
+    Problem3.findLeastCommonElementInCollection(coll) should equal('0')
+  }
+  it should "find least common element in a collection - Return 0 if least common are the same - 2" in {
+    val coll = List('1', '0')
+    Problem3.findLeastCommonElementInCollection(coll) should equal('0')
   }
 
 
@@ -40,5 +56,9 @@ class Problem3Test extends AnyFlatSpec with Matchers {
   behavior of "solution finder"
   it should "test solution" in {
     Problem3.solution(testFilePath) should equal(198)
+  }
+
+  it should "test solution part two" in {
+    Problem3.solutionPartTwo(testFilePath) should equal(230)
   }
 }
