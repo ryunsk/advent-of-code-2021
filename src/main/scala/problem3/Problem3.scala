@@ -12,7 +12,8 @@ object Problem3 {
   }
 
   def solutionPartTwo(filePath: String): Int = {
-    111
+    val input = readInput(filePath)
+    convertBinaryToDecimal(findLastRemainingOxygenBitCriteria(input)) * convertBinaryToDecimal(findLastRemainingCO2BitCriteria(input))
   }
 
   def findLastRemainingOxygenBitCriteria(input: List[String]): String = {
@@ -24,6 +25,22 @@ object Problem3 {
         val transposedList = inputList.transpose
         val mostCommonCharInIndex = findMostCommonElementInCollection(transposedList(index))
         val filtered = inputList.filter(x => x(index) == mostCommonCharInIndex)
+        loop(index + 1, filtered)
+      }
+    }
+
+    loop(0, input)
+  }
+
+  def findLastRemainingCO2BitCriteria(input: List[String]): String = {
+    @annotation.tailrec
+    def loop(index: Int, inputList: List[String]): String = {
+      if (inputList.length == 1) {
+        inputList.head
+      } else {
+        val transposedList = inputList.transpose
+        val leastCommonCharInIndex = findLeastCommonElementInCollection(transposedList(index))
+        val filtered = inputList.filter(x => x(index) == leastCommonCharInIndex)
         loop(index + 1, filtered)
       }
     }
@@ -67,10 +84,10 @@ object Problem3 {
   }
 }
 
-
 object run {
   def main(args: Array[String]): Unit = {
     val filePath = "input-3"
     println(Problem3.solution(filePath))
+    println(Problem3.solutionPartTwo(filePath))
   }
 }

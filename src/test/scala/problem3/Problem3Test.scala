@@ -3,6 +3,8 @@ package problem3
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
 
+import scala.Console.in
+
 class Problem3Test extends AnyFlatSpec with Matchers {
   val testFilePath = "test-input-3"
   val testInput: List[String] = Problem3.readInput(testFilePath)
@@ -58,9 +60,13 @@ class Problem3Test extends AnyFlatSpec with Matchers {
   it should "find Oxygen criteria - bigger input" in {
     Problem3.findLastRemainingOxygenBitCriteria(testInput) should equal("10111")
   }
-  //  it should "find CO2 criteria" in {
-  //    Problem3.findLastRemainingOxygenBitCriteria(testInput) should equal("10111")
-  //  }
+  it should "find CO2 criteria" in {
+    val input = List("100", "111", "010")
+    Problem3.findLastRemainingCO2BitCriteria(input) should equal("010")
+  }
+  it should "find CO2 criteria - bigger input" in {
+    Problem3.findLastRemainingCO2BitCriteria(testInput) should equal("01010")
+  }
 
   behavior of "solution finder"
   it should "test solution" in {
