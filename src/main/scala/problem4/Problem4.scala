@@ -3,6 +3,31 @@ package problem4
 import scala.io.Source
 
 object Problem4 {
+  def solution2(filePath: String): Int = {
+    val inputData = readInput(filePath)
+    val numbersToDraw = parseInputToNumbersToDraw(inputData)
+    var bingoBoards = parseInputToAllBingoBoards(inputData)
+    var finalScore = 0
+    // mark number -> Check if it is winner
+    println("All numbers to draw: " + numbersToDraw.mkString(","))
+
+    for (i <- numbersToDraw; j <- bingoBoards) {
+      println("Bingo board length = " + bingoBoards.length)
+      println("Number drawn = " + i)
+      for (k <- j) {
+        if (k.contains(i)) {
+          k(k.indexOf(i)) = "X"
+        }
+        println("Current board row after marking X = " + k.mkString(","))
+      }
+      if (isWinner(j)) {
+        bingoBoards = bingoBoards.filter(x => !(x sameElements j))
+        finalScore = calculateFinalScore(j, i.toInt)
+      }
+    }
+    finalScore
+  }
+
   def solution(filePath: String): Int = {
     val inputData = readInput(filePath)
     val numbersToDraw = parseInputToNumbersToDraw(inputData)
