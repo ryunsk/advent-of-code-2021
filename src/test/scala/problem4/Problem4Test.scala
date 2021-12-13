@@ -89,8 +89,14 @@ class Problem4Test extends AnyFlatSpec with Matchers {
 
   behavior of "solution finder"
   it should "find the correct solution" in {
-    val filePath = "input-4"
+    val filePath = "test-input-4"
     Problem4.solution(filePath) should equal(4512)
+  }
+
+  behavior of "solution finder part 2"
+  it should "find the correct solution" in {
+    val filePath = "test-input-4"
+    Problem4.solution(filePath) should equal(1924)
   }
 
 }

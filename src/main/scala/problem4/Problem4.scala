@@ -20,12 +20,15 @@ object Problem4 {
       }
       if (isWinner(j)) {
         //        println("=====Winner found =====")
-        val sumOfRest = j.flatten.filter(_ != "X").map(_.toInt).sum
-        val result = sumOfRest * i.toInt
-        return result
+        return calculateFinalScore(j, i.toInt)
       }
     }
     -1
+  }
+
+  private[problem4] def calculateFinalScore(board: Array[Array[String]], number: Int): Int = {
+    val sumOfRest = board.flatten.filter(_ != "X").map(_.toInt).sum
+    sumOfRest * number
   }
 
   private[problem4] def isWinner(board: Array[Array[String]]): Boolean = {
