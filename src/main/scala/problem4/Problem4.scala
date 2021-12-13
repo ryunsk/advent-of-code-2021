@@ -3,33 +3,47 @@ package problem4
 import scala.io.Source
 
 object Problem4 {
-  def solution(filePath: String): Unit = {
+  def solution(filePath: String): Int = {
     val inputData = readInput(filePath)
     val numbersToDraw = parseInputToNumbersToDraw(inputData)
     val bingoBoards = parseInputToAllBingoBoards(inputData)
+    // mark number -> Check if it is winner
+    println("All numbers to draw: " + numbersToDraw.mkString(","))
 
-    //    println(numbersToDraw.mkString(","))
-    //    println(bingoBoards)
-    //    def loop():
+    for (i <- numbersToDraw; j <- bingoBoards) {
+      //      println("Number drawn = " + i)
+      for (k <- j) {
+        if (k.contains(i)) {
+          k(k.indexOf(i)) = "X"
+        }
+        //        println("Current board row after marking X = " + k.mkString(","))
+      }
+      if (isWinner(j)) {
+        //        println("=====Winner found =====")
+        val sumOfRest = j.flatten.filter(_ != "X").map(_.toInt).sum
+        val result = sumOfRest * i.toInt
+        return result
+      }
+    }
+    -1
   }
 
   private[problem4] def isWinner(board: Array[Array[String]]): Boolean = {
-    val horizontal = board.flatMap(_.mkString("")).mkString("")
-    val vertical = board.transpose.flatMap(_.mkString("")).mkString("")
-    horizontal.contains("XXXXX") || vertical.contains("XXXXX")
+    val horizontal = board.map(_.mkString("")).map(_.contains("XXXXX"))
+    val vertical = board.transpose.map(_.mkString("")).map(_.contains("XXXXX"))
+    horizontal.contains(true) || vertical.contains(true)
   }
 
-  // Check if board has any winners
   private[problem4] def parseInputToNumbersToDraw(input: Array[String]): Array[String] = {
     input.head.split(",")
   }
 
   private[problem4] def parseInputToAllBingoBoards(input: Array[String]): Array[Array[Array[String]]] = {
     // Array of 2D Boards (Array[Array[Int]])
-    input.tail.filter(_ != "").map(parseLineToRow).sliding(5, 5).toArray
+    input.tail.filter(_ != "").map(parseInputLineToRow).sliding(5, 5).toArray
   }
 
-  private[problem4] def parseLineToRow(input: String): Array[String] = {
+  private[problem4] def parseInputLineToRow(input: String): Array[String] = {
     if (input.head.toString.equals(" ")) {
       input.tail.replace("  ", " ").split(" ")
     }
@@ -42,6 +56,5 @@ object Problem4 {
     val lines = Source.fromResource(filePath).getLines()
     lines.toArray
   }
-
 
 }

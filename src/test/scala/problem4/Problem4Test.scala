@@ -12,13 +12,15 @@ class Problem4Test extends AnyFlatSpec with Matchers {
       Array(7, 4, 9, 5, 11, 17, 23, 2, 0, 14, 21, 24, 10, 16, 13, 6, 15, 25, 12, 22, 18, 20, 8, 19, 3, 26, 1).map(_.toString)
     )
   }
+
   it should "parse string line into array - 1" in {
     val line = "22 13 17 11  0"
-    Problem4.parseLineToRow(line) should equal(Array("22", "13", "17", "11", "0"))
+    Problem4.parseInputLineToRow(line) should equal(Array("22", "13", "17", "11", "0"))
   }
+
   it should "parse string line into array - 2" in {
     val line = " 8  2 23  4 24"
-    Problem4.parseLineToRow(line) should equal(Array("8", "2", "23", "4", "24"))
+    Problem4.parseInputLineToRow(line) should equal(Array("8", "2", "23", "4", "24"))
   }
 
   it should "parse all boards from input correctly" in {
@@ -53,6 +55,7 @@ class Problem4Test extends AnyFlatSpec with Matchers {
     allBoards(2) should equal(expectedResult(2))
   }
 
+  behavior of "check if board is winner"
   it should "find winner - horizontal" in {
     val winningBoard = Array(
       Array("22", "13", "17", "11", "0"),
@@ -62,6 +65,16 @@ class Problem4Test extends AnyFlatSpec with Matchers {
       Array("1", "12", "20", "15", "19")
     )
     Problem4.isWinner(winningBoard) should equal(true)
+  }
+  it should "find winner - horizontal - 2" in {
+    val winningBoard = Array(
+      Array("22", "13", "X", "X", "X"),
+      Array("8", "X", "X", "X", "X"),
+      Array("X", "X", "X", "16", "X"),
+      Array("6", "10", "3", "18", "X"),
+      Array("1", "12", "20", "15", "19")
+    )
+    Problem4.isWinner(winningBoard) should equal(false)
   }
   it should "find winner - vertical" in {
     val winningBoard = Array(
@@ -74,9 +87,10 @@ class Problem4Test extends AnyFlatSpec with Matchers {
     Problem4.isWinner(winningBoard) should equal(true)
   }
 
+  behavior of "solution finder"
   it should "find the correct solution" in {
-    val filePath = "test-input-4"
-    Problem4.solution(filePath)
+    val filePath = "input-4"
+    Problem4.solution(filePath) should equal(4512)
   }
 
 }
