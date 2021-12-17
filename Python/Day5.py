@@ -29,8 +29,15 @@ def find_all_coordinates(first: tuple, second: tuple):
         return set((i, first[1]) for i in range(min(first[0], second[0]), first[0] + abs(second[0] - first[0] + 1)))
 
 
-def solution_part1():
+def solution_part1(input_file):
     diagram = create_diagram()
+    lines = input_to_lines(input_file)
+    for line in lines:
+        first_coordinates = parse_string_as_coordinates(parse_line(line)[0])
+        second_coordinates = parse_string_as_coordinates(parse_line(line)[1])
+        all = find_all_coordinates(first_coordinates, second_coordinates)
+        print(all)
+    return 1
 
 
 # print(input_to_lines("input-5-test"))

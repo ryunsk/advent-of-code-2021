@@ -1,6 +1,6 @@
 import unittest
 
-from Day5 import parse_line
+from Day5 import parse_line, solution_part1
 from Day5 import parse_string_as_coordinates
 from Day5 import find_all_coordinates
 
@@ -20,6 +20,9 @@ class TestDay5(unittest.TestCase):
 
     def test_find_all_coordinates_3(self):
         self.assertEqual(find_all_coordinates((0, 9), (5, 9)), {(0, 9), (1, 9), (2, 9), (3, 9), (4, 9), (5, 9)})
+
+    def test_solution_part1(self):
+        self.assertEqual(solution_part1("input-5-test"), 5)
 
 
 if __name__ == '__main__':
