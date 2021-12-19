@@ -7,10 +7,12 @@ def input_to_lines(input_file):
         return lines
 
 
-def create_diagram():
+def create_diagram(x, y):
     diagram = []
-    for i in range(9):
-        diagram.append([0, 0, 0, 0, 0, 0, 0, 0, 0])
+    # Repeat y times to create y coordinates sized board
+    for i in range(y):
+        # Repeat x times to create x coordinates sized board
+        diagram.append([0] * x)
     return diagram
 
 
@@ -24,25 +26,30 @@ def parse_line(line: str):
 
 def find_all_coordinates(first: tuple, second: tuple):
     if first[0] == second[0]:
-        return set((first[0], i) for i in range(min(first[1], second[1]), first[1] + abs(second[1] - first[1] + 1)))
+        return set((first[0], i) for i in
+                   range(min(first[1], second[1]), max(first[1], second[1]) + 1))
+    elif first[1] == second[1]:
+        return set((i, first[1]) for i in
+                   range(min(first[0], second[0]), max(first[0], second[0]) + 1))
     else:
-        return set((i, first[1]) for i in range(min(first[0], second[0]), first[0] + abs(second[0] - first[0] + 1)))
+        return {}
 
 
 def solution_part1(input_file):
-    diagram = create_diagram()
     lines = input_to_lines(input_file)
+    diagram = create_diagram(1000, 1000)
+    total_count = 0
     for line in lines:
         first_coordinates = parse_string_as_coordinates(parse_line(line)[0])
         second_coordinates = parse_string_as_coordinates(parse_line(line)[1])
-        all = find_all_coordinates(first_coordinates, second_coordinates)
-        print(all)
-    return 1
+        for i in find_all_coordinates(first_coordinates, second_coordinates):
+            diagram[i[0]][i[1]] += 1
+    for i in diagram:
+        for j in i:
+            if j >= 2:
+                total_count += 1
+
+    return total_count
 
 
-# print(input_to_lines("input-5-test"))
-# print(create_diagram())
-# print(find_all_coordinates((0, 9), (5, 9)))
-# print(parse_string_as_coordinates("0,9"))
-# print(parse_line("0,9 -> 2,9"))
-print(find_all_coordinates((9, 7), (7, 7)))
+print(solution_part1('input-5'))
